@@ -8,8 +8,6 @@ def main():
 
 
 def run_updates():
-    _ver3 = set_for_unix()
-
     print("\nUpdating PIP...")
     os.system(f"python3 -m pip install --upgrade pip")
 
@@ -17,22 +15,17 @@ def run_updates():
     os.system(f"python3 -m pip install pipenv")
 
     print("\nSetting a new Python Environment...")
-    os.system(f"python3 -m virtualenv venv")
+    os.system(f"python3 -m venv venv")
+    os.system(f"source venv/bin/activate")
 
     print("\nUpdating all packages and resources...")
-    os.system(f"python3 -m pip install -r requirements.txt --user")
-    os.system(f"python3 -m pip install -U black --user")
-    os.system(f"python3 -m pip install -U rope --user")
+    os.system(f"python3 -m pip install -r requirements.txt")
+    os.system(f"python3 -m pip install -U black")
+    os.system(f"python3 -m pip install -U rope")
 
     print("\nPackages installed:")
     os.system(f"python3 -m pip list")
     os.system(f"python3 -m pip install --upgrade pip")
-
-
-def set_for_unix():
-    if os.name != "nt":
-        return "3"
-
 
 class Update:
     if __name__ == "__main__":

@@ -70,7 +70,7 @@ Into this file, to consider a development setting, ensure the property `developm
 
     debug_flag_target = local_emulation
     debug_flag_os = Android
-    debug_flag_os_version = 11.0
+    debug_flag_os_version = 13.0
     debug_flag_device_name = Samsung Galaxy A51
     debug_flag_mode = native_app
     debug_behave_tags = login-sample
@@ -94,7 +94,7 @@ Into this script file, you can set those environment variables, like this:
     PYON_MODE='native_app'
 
     PYON_OS='Android'
-    PYON_OS_VERSION='11.0'
+    PYON_OS_VERSION='13.0'
     PYON_DEVICE='Samsung Galaxy A51'
 
     PYON_ORIENTATION='Portrait'
@@ -147,10 +147,12 @@ optional arguments:
 Finally, you can vary the command options such as these samples below and much more. If you does not pass the other arguments, it will be considered the default values:
 
 ```bash
-     python behave_runner.py --target local_emulation
-     python behave_runner.py --target local_emulation --os iOS --os_version '14.3' --device_name 'iPhone 12' --orientation Landscape --app_path'.resources\\mobile_automation\\Sample.ipa'
-     python behave_runner.py --target bs --mode native_app --os iOS --os_version '14.0' --device_name 'iPhone 11' --app_path '.resources\\mobile_automation\\Sample.ipa'
-     python behave_runner.py --target real_device --mode native_app --os Android --os_version '10.0' --device_name 'Samsung Galaxy A51' --tags login-sample --exclude slow
+     python3 behave_runner.py --target local_emulation
+     python3 behave_runner.py --target local_emulation --os iOS --os_version '14.3' --device_name 'iPhone 12' --orientation Landscape --app_path'.resources\\mobile_automation\\Sample.ipa'
+
+     python3 behave_runner.py --target bs --mode native_app --os iOS --os_version '14.0' --device_name 'iPhone 11' --app_path '.resources\\mobile_automation\\Sample.ipa'
+
+     python3 behave_runner.py --target real_device --mode native_app --os Android --os_version '13.0' --device_name 'Samsung Galaxy A51' --tags login-sample --exclude slow --app_path '.resources/app_distribution/Sample.apk'
 ```
 
 ## SETUP FOR NATIVE APPS RUNNING LOCALLY
@@ -169,17 +171,17 @@ Open a separated terminal to start the Appium server. You have two ways to run i
 - Via `appium_setup.py` script, set the host and port if you need (by default it is "0.0.0.0" and "4723", respectively):
 
 ```bash
-    python appium_setup.py --server start
+    python3 appium_setup.py --server start
 ```
 
 ```bash
-    python appium_setup.py --server start --localhost <YOUR_HOST> --port <YOUR_PORT>
+    python3 appium_setup.py --server start --localhost <YOUR_HOST> --port <YOUR_PORT>
 ```
 
 - Or you can execute directly with:
 
 ```bash
-    appium --address <host> --port <number>
+    appium3 --address <host> --port <number>
 ```
 
 #### 1. Appium Desktop
@@ -563,7 +565,7 @@ At the '/features/pages/' folder, create a new page object class that inherits t
 
 ```python
 from driver_wrappers.appium.native_app_wrapper import BaseAppPage
-from appium.webdriver.common.mobileby import MobileBy as MBy
+from appium.webdriver.common.appiumby import AppiumBy as ABy
 
 
 class HomePage(BaseAppPage):
@@ -588,22 +590,22 @@ Through BaseAppPage, you can take all advantages from default Selenium web drive
     # ... and many others
 ```
 
-Considering this, extract the element locators inspecting the application's page opened in Appium Desktop and place them into the variables of your Page Object class. But, you will need to import `from appium.webdriver.common.mobileby import MobileBy` into the HomePage, to define a kind of locator for a XCUITest element should be able to interpret (MBy.XPATH, MBy.ACCESSIBILITY_ID, By.IOS_UIAUTOMATION, etc.):
+Considering this, extract the element locators inspecting the application's page opened in Appium Desktop and place them into the variables of your Page Object class. But, you will need to import `from appium.webdriver.common.appyumby import AppiumBy` into the HomePage, to define a kind of locator for a XCUITest element should be able to interpret (ABy.XPATH, ABy.ACCESSIBILITY_ID, By.IOS_UIAUTOMATION, etc.):
 
 ```python
 from driver_wrappers.appium.native_app_wrapper import BaseAppPage
-from appium.webdriver.common.mobileby import MobileBy as MBy
+from appium.webdriver.common.appiumby import AppiumBy as ABy
 
 
 class AuthPage(BaseAppPage):
-    loc_lbl_title = (MBy.XPATH, '//android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.TextView')
-    loc_txt_username = (MBy.ID, 'com.dgotlieb.automationsample:id/userName')
-    loc_txt_password = (MBy.ID, 'com.dgotlieb.automationsample:id/userPassword')
-    loc_btn_login = (MBy.ID, 'com.dgotlieb.automationsample:id/loginButton')
-    loc_lbl_error_message = (MBy.ID, 'com.dgotlieb.automationsample:id/errorTV')
+    loc_lbl_title = (ABy.XPATH, '//android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.TextView')
+    loc_txt_username = (ABy.ID, 'com.dgotlieb.automationsample:id/userName')
+    loc_txt_password = (ABy.ID, 'com.dgotlieb.automationsample:id/userPassword')
+    loc_btn_login = (ABy.ID, 'com.dgotlieb.automationsample:id/loginButton')
+    loc_lbl_error_message = (ABy.ID, 'com.dgotlieb.automationsample:id/errorTV')
 ```
 
-The locator declared with a tuple (`(MBy.<TYPE>, "<location string>")`) can be called directly using asterisk before a `self.loc_name`.
+The locator declared with a tuple (`(ABy.<TYPE>, "<location string>")`) can be called directly using asterisk before a `self.loc_name`.
 
 ###### 1.4.a) Assertions
 
@@ -621,11 +623,11 @@ Then, you should have a page with an implementation like that:
 
 ```python
 class AuthPage(BaseAppPage):
-    loc_lbl_title = (MBy.XPATH, '//android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.TextView')
-    loc_txt_username = (MBy.ID, 'com.dgotlieb.automationsample:id/userName')
-    loc_txt_password = (MBy.ID, 'com.dgotlieb.automationsample:id/userPassword')
-    loc_btn_login = (MBy.ID, 'com.dgotlieb.automationsample:id/loginButton')
-    loc_lbl_error_message = (MBy.ID, 'com.dgotlieb.automationsample:id/errorTV')
+    loc_lbl_title = (ABy.XPATH, '//android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.TextView')
+    loc_txt_username = (ABy.ID, 'com.dgotlieb.automationsample:id/userName')
+    loc_txt_password = (ABy.ID, 'com.dgotlieb.automationsample:id/userPassword')
+    loc_btn_login = (ABy.ID, 'com.dgotlieb.automationsample:id/loginButton')
+    loc_lbl_error_message = (ABy.ID, 'com.dgotlieb.automationsample:id/errorTV')
 
     def check_title(self):
         self.is_the_element_presented(*self.loc_lbl_title)

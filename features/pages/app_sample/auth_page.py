@@ -1,12 +1,12 @@
 from driver_wrappers.appium.native_app_wrapper import BaseAppPage
-from appium.webdriver.common.mobileby import MobileBy as MBy
+from appium.webdriver.common.appiumby import AppiumBy as ABy
 
 
 class AuthPage(BaseAppPage):
-    loc_txt_username = (MBy.ID, 'com.dgotlieb.automationsample:id/userName')
-    loc_txt_password = (MBy.ID, 'com.dgotlieb.automationsample:id/userPassword')
-    loc_btn_login = (MBy.ID, 'com.dgotlieb.automationsample:id/loginButton')
-    loc_lbl_error_message = (MBy.ID, 'com.dgotlieb.automationsample:id/errorTV')
+    loc_txt_username = (ABy.ID, 'com.dgotlieb.automationsample:id/userName')
+    loc_txt_password = (ABy.ID, 'com.dgotlieb.automationsample:id/userPassword')
+    loc_btn_login = (ABy.ID, 'com.dgotlieb.automationsample:id/loginButton')
+    loc_lbl_error_message = (ABy.ID, 'com.dgotlieb.automationsample:id/errorTV')
         
     def type_input_username(self, input_value):
         self.wait_for_element(*self.loc_txt_username)

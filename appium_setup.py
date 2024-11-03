@@ -64,7 +64,6 @@ def appium_start(server, localhost, port):
     if server == "start":
         print("\nAPPIM - Starting Client...")
         os.system(f"appium -v")
-        os.system("kill -9 `lsof -i TCP:" + str(port) + " | awk '/LISTEN/{print $2}'`")
         os.system(f"appium --address {localhost} --port {port} &")
         # os.system(f"appium --address {localhost} --port {port} &>/dev/null &")
         check_created_processes("APPIUM STARTED")
@@ -79,7 +78,7 @@ def appium_uninstall(server):
 def appium_install(server):
     if server == "install" or server == "install_and_run":
         print("\nAPPIUM - Installing Client ...")
-        os.system("npm install -g appium@1.20.2 --unsafe-perm=true --allow-root")
+        os.system("npm install -g appium --unsafe-perm=true --allow-root")
         os.system("npm install -g wd")
         os.system("npm i -g webpack")
 

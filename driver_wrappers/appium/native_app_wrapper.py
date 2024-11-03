@@ -2,8 +2,8 @@ import time
 from factory.handling.assertion import Assertion as Assert
 from factory.handling.running_exception import RunningException as Rexc
 from factory.singleton_web_driver import WebDriver
-from appium.webdriver.common.mobileby import MobileBy as MBy
-from appium.webdriver.common.touch_action import TouchAction
+from appium.webdriver.common.appiumby import AppiumBy as ABy
+
 from selenium.webdriver.support.ui import Select
 from factory.utils.StringsUtil import StringUtil as String
 from factory.utils.DataEncryptedUtil import DataEncrypted as RandomData
@@ -201,72 +201,72 @@ class BaseAppPage(WebDriver):
 
     @staticmethod
     def click_on_element_by_accessibility_id(element_location):
-        BaseAppPage.wait_for_element(MBy.ACCESSIBILITY_ID, element_location, is_clickable=True)
+        BaseAppPage.wait_for_element(ABy.ACCESSIBILITY_ID, element_location, is_clickable=True)
         BaseAppPage.find_by_accessibility_id(element_location).click()
 
     @staticmethod
     def click_on_element_by_android_uiautomator(element_location):
-        BaseAppPage.wait_for_element(MBy.ANDROID_UIAUTOMATOR, element_location, is_clickable=True)
+        BaseAppPage.wait_for_element(ABy.ANDROID_UIAUTOMATOR, element_location, is_clickable=True)
         BaseAppPage.find_by_android_uiautomator(element_location).click()
 
     @staticmethod
     def click_on_element_by_android_viewtag(element_location):
-        BaseAppPage.wait_for_element(MBy.ANDROID_VIEWTAG, element_location, is_clickable=True)
+        BaseAppPage.wait_for_element(ABy.ANDROID_VIEWTAG, element_location, is_clickable=True)
         BaseAppPage.find_by_android_viewtag(element_location).click()
 
     @staticmethod
     def click_on_element_by_xpath(element_location):
-        BaseAppPage.wait_for_element(MBy.XPATH, element_location)
+        BaseAppPage.wait_for_element(ABy.XPATH, element_location)
         BaseAppPage.find_by_xpath(element_location).click()
 
     @staticmethod
     def click_on_element_by_css_selector(element_location):
-        BaseAppPage.wait_for_element(MBy.CSS_SELECTOR, element_location)
+        BaseAppPage.wait_for_element(ABy.CSS_SELECTOR, element_location)
         BaseAppPage.find_by_css_selector(element_location).click()
 
     @staticmethod
     def click_on_element_by_class_name(element_location):
-        BaseAppPage.wait_for_element(MBy.CLASS_NAME, element_location)
+        BaseAppPage.wait_for_element(ABy.CLASS_NAME, element_location)
         BaseAppPage.find_by_class_name(element_location).click()
 
     @staticmethod
     def click_on_element_by_custom(element_location):
-        BaseAppPage.wait_for_element(MBy.CUSTOM, element_location)
+        BaseAppPage.wait_for_element(ABy.CUSTOM, element_location)
         BaseAppPage.find_by_custom(element_location).click()
 
     @staticmethod
     def click_on_element_by_id(element_location):
-        BaseAppPage.wait_for_element(MBy.ID, element_location)
+        BaseAppPage.wait_for_element(ABy.ID, element_location)
         BaseAppPage.find_by_id(element_location).click()
 
     @staticmethod
     def click_on_element_by_image(element_location):
-        BaseAppPage.wait_for_element(MBy.IMAGE, element_location)
+        BaseAppPage.wait_for_element(ABy.IMAGE, element_location)
         BaseAppPage.find_by_image(element_location).click()
 
     @staticmethod
     def click_on_element_by_ios_class_chain(element_location):
-        BaseAppPage.wait_for_element(MBy.IOS_CLASS_CHAIN, element_location)
+        BaseAppPage.wait_for_element(ABy.IOS_CLASS_CHAIN, element_location)
         BaseAppPage.find_by_ios_class_chain(element_location).click()
 
     @staticmethod
     def click_on_element_by_ios_predicate(element_location):
-        BaseAppPage.wait_for_element(MBy.IOS_PREDICATE, element_location)
+        BaseAppPage.wait_for_element(ABy.IOS_PREDICATE, element_location)
         BaseAppPage.find_by_ios_predicate(element_location).click()
 
     @staticmethod
     def click_on_element_by_ios_uiautomation(element_location):
-        BaseAppPage.wait_for_element(MBy.IOS_UIAUTOMATION, element_location)
+        BaseAppPage.wait_for_element(ABy.IOS_UIAUTOMATION, element_location)
         BaseAppPage.find_by_ios_uiautomation(element_location).click()
 
     @staticmethod
     def click_on_element_by_name(element_location):
-        BaseAppPage.wait_for_element(MBy.NAME, element_location)
+        BaseAppPage.wait_for_element(ABy.NAME, element_location)
         BaseAppPage.find_by_name(element_location).click()
 
     @staticmethod
     def click_on_element_by_tag_name(element_location):
-        BaseAppPage.wait_for_element(MBy.TAG_NAME, element_location)
+        BaseAppPage.wait_for_element(ABy.TAG_NAME, element_location)
         BaseAppPage.find_by_tag_name(element_location).click()
 
     @staticmethod
@@ -298,11 +298,11 @@ class BaseAppPage(WebDriver):
             labels.append(price_fmt)
         return labels
 
-    @staticmethod
-    def tap(by_type="", element_location=""):
-        element = BaseAppPage.find_by(by_type, element_location)
-        action = TouchAction(WebDriver.use())
-        action.tap(element).perform()
+    # @staticmethod
+    # def tap(by_type="", element_location=""):
+    #     element = BaseAppPage.find_by(by_type, element_location)
+    #     action = TouchAction(WebDriver.use())
+    #     action.tap(element).perform()
 
     @staticmethod
     def choose_random_value(values_list):
@@ -336,7 +336,7 @@ class BaseAppPage(WebDriver):
     def find_a_limit_value_in_list(by_type, element_location, max_value=False):
         """Find Max or Min value in list of elements
         Args:
-            by_type (By): Use MBy that defines the drop_locator
+            by_type (By): Use ABy that defines the drop_locator
             element_location (str): Locator string from an element (can be an XPATH, ID, CSS_SELECTOR, etc.)
             max_value (bool, optional): Set it to True if you need only a max value into a list found. Defaults to False.
         Returns:
@@ -361,7 +361,7 @@ class BaseAppPage(WebDriver):
     def select_dropdown_item(
         str_option,
         str_autocomplete="",
-        root_by_type=MBy.XPATH,
+        root_by_type=ABy.XPATH,
         root_selector="",
         xpath_for_root_option="",
         xpath_with_a_option_set="",
@@ -415,7 +415,7 @@ class BaseAppPage(WebDriver):
             else:
                 BaseAppPage.click_on(root_by_type, root_selector, is_visible=is_component_visible)
             dropdown_item_value = (
-                BaseAppPage._choose_random_element(MBy.XPATH, xpath_for_root_option)
+                BaseAppPage._choose_random_element(ABy.XPATH, xpath_for_root_option)
                 if str_option == "" and xpath_with_a_option_set == ""
                 else str_option
             )
@@ -425,7 +425,7 @@ class BaseAppPage(WebDriver):
             has_all_symbol = (
                 "//*"
                 if BaseAppPage.wait_for_element(
-                    MBy.XPATH,
+                    ABy.XPATH,
                     f"{xpath_for_root_option}//*{text_finder}",
                     is_presented=True,
                 )
@@ -438,8 +438,8 @@ class BaseAppPage(WebDriver):
                 else xpath_with_a_option_set
             )
             print(f"   └> Dynamic option to selection:\n      {full_selector_item}")
-            BaseAppPage.wait_for_element(MBy.XPATH, full_selector_item)
-            BaseAppPage.click_on(MBy.XPATH, full_selector_item, is_visible=is_component_visible)
+            BaseAppPage.wait_for_element(ABy.XPATH, full_selector_item)
+            BaseAppPage.click_on(ABy.XPATH, full_selector_item, is_visible=is_component_visible)
 
     @staticmethod
     def _combobox(option, by_type, element_location):

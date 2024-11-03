@@ -8,7 +8,7 @@ PYON_TARGET='real_device'
 PYON_MODE='native_app'
 
 PYON_OS='Android'
-PYON_OS_VERSION='11.0'
+PYON_OS_VERSION='13.0'
 PYON_DEVICE='Samsung Galaxy A51'
     
     # WITH IOS
@@ -29,14 +29,17 @@ PYON_EXCLUDED_TAG='wip'
 # echo 'COPYING PROPERTIES'
 # cp env_settings.properties.local env_settings.properties
 
+# echo 'UPDATING PACKAGES...'
+# python3 setup_python_env_update.py
+
 echo '\nSTARTING APPIUM SERVER...'
-    # python appium_setup.py --adb install & \
 bash -c "\
-    python appium_setup.py --adb add_path --server start & \
+    python3 appium_setup.py --server start & \
     sleep 7
     "
+
 echo 'RUNNING BEHAVE TESTS...'
-python behave_runner.py --target $PYON_TARGET \
+python3 behave_runner.py --target $PYON_TARGET \
                         --environment "$PYON_ENVIRONMENT" \
                         --mode $PYON_MODE \
                         --os "$PYON_OS" \
@@ -50,4 +53,4 @@ python behave_runner.py --target $PYON_TARGET \
                         --exclude "$PYON_EXCLUDED_TAG"
 
 echo '\nSTOPPING APPIUM SERVER...'
-python appium_setup.py --server stop
+python3 appium_setup.py --server stop

@@ -25,7 +25,7 @@ debug_flag_environment = staging
 # Get more information about PyonUIT CLI, type in the terminal console: "python behave_runner.py --help"
 debug_flag_target = remote_emulation
 debug_flag_os = Android
-debug_flag_os_version = 11.0
+debug_flag_os_version = 13.0
 debug_flag_device_name = Samsung Galaxy A51
 debug_flag_mode = native_app
 debug_behave_tags = login-sample
